@@ -1,6 +1,9 @@
 (function () {
     Bennu.localizedString = Bennu.localizedString || {};
+    
     Bennu.localizedString.attr = "bennu-localized-string";
+    Bennu.localizedString.controlAttr = "bennu-localized-string-control";
+
     Bennu.localizedString.inputValidAttr = ["readonly", "placeholder", "maxlength","disabled"]
     Bennu.localizedString.textAreaValidAttr = ["readonly", "placeholder", "maxlength","disabled"]
     
@@ -118,10 +121,16 @@
                     '<ul class="dropdown-menu bennu-localized-string-menu pull-right" role="menu"></ul></div></div>' +
                     '<p class="help-block"></p></div>');
             } else if (input.prop("tagName") == "TEXTAREA") {
-                var widget = $('<div class="bennu-localized-string-textArea"><p><div class="btn-group bennu-localized-string-group"><button type="button" class="btn btn-default dropdown-toggle bennu-localized-string-button" data-toggle="dropdown"><span class="bennu-localized-string-language"></span><span class="caret"></span></button><ul class="dropdown-menu bennu-localized-string-menu" role="menu"></ul></div></p><p><textarea class="form-control bennu-localized-string-textarea"></textarea><p class="help-block"></p></div>');
+                var widget = $('<div class="bennu-localized-string-textArea"><p><div class="btn-group bennu-localized-string-group">'+
+                    '<button type="button" class="btn btn-default dropdown-toggle bennu-localized-string-button" data-toggle="dropdown">'+
+                    '<span class="bennu-localized-string-language"></span><span class="caret"></span></button>'+
+                    '<ul class="dropdown-menu bennu-localized-string-menu" role="menu"></ul></div></p>'+
+                    '<p><textarea class="form-control bennu-localized-string-textarea"></textarea><p class="help-block"></p></div>');
             }
 
-
+            if(!Bennu.utils.hasAttr(input,"keep-button")){
+                widget.addClass("bennu-localized-string-btn-hideable")
+            }
 
             widget.data("related", input);
             Bennu.localizedString.makeLocaleList($(".bennu-localized-string-menu", widget), widget, function (e) {
@@ -199,6 +208,34 @@
         }
     };
 
+    Bennu.localizedString.createCentralWidget = function (input) {
+        input = $(input);
+        
+        if (!$(input).data("input")) {
+
+            var widget = $('<div class="bennu-localized-string-control-widget"><button type="button" class=" btn btn-default dropdown-toggle bennu-localized-string-button-full bennu-localized-string-button" data-toggle="dropdown">' +
+                    '<span class="bennu-localized-string-language"></span> <span class="caret"></span></button>'+
+                    '<ul class="dropdown-menu bennu-localized-string-menu pull-right" role="menu"></ul></div>');
+            var nilquery = $("#" + Bennu.gensym());
+            
+            setLocale(Bennu.locale, $(".bennu-localized-string-language", widget));
+            Bennu.localizedString.makeLocaleList($(".bennu-localized-string-menu", widget), widget, function (e) {
+                Bennu.localizedString.changeData($(e.target).parent().data("locale"), $(".bennu-localized-string-language", widget), $(".bennu-localized-string-input,.bennu-localized-string-textarea", widget), widget, $(".bennu-localized-string-tag", widget));
+            });
+
+            $(document.body).append("<style>.bennu-localized-string-btn-hideable .bennu-localized-string-button{" + 
+                "display:none;"+ 
+            "}"+ 
+            ".bennu-localized-string-btn-hideable .input-group,.bennu-localized-string-input-group .input-group .form-control{" + 
+                "display:block; width: 100%; height: 35px;" + 
+            "}</style>");
+
+            $(input).data("input", widget);
+            $(widget).data("related", input);
+            input.after(widget);
+        }
+    }
+
     function recalculateButtons(el) {
         el = el || $(".bennu-localized-string-input-group");
         el.map(function(i, e) { 
@@ -208,12 +245,12 @@
             if(x.length && z.length){
                 if ((z.width() / e.width()) > 1/3){
                     if (z[0].style.display !== "none"){
-                        x[0].style.display = "inline";
+                        x[0].style.display = "";
                         z[0].style.display = "none";
                     }
                 }else{
                     if (x[0].style.display !== "none"){
-                        z[0].style.display = "inline";
+                        z[0].style.display = "";
                         x[0].style.display = "none";
                     }
                 }
