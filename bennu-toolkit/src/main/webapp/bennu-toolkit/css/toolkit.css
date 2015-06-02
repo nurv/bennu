@@ -4,6 +4,10 @@
     display: none !important;
 }
 
+[bennu-localized-string-control]{
+    display: none !important;
+}
+
 button.voiceBtn {
     background-color: transparent;
     border: 0;

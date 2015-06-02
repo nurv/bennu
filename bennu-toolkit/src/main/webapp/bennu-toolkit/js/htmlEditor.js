@@ -325,6 +325,10 @@
         }
 
         if (Bennu.utils.hasAttr(e,"bennu-localized-string")) {
+            if(!Bennu.utils.hasAttr(e,"keep-button")){
+                dom.addClass("bennu-localized-string-btn-hideable")
+            }
+
             var menu = $('<div class="btn-group bennu-localized-string-group">' +
                 '<button type="button" class="btn btn-default dropdown-toggle bennu-localized-string-button" data-toggle="dropdown">' +
                 '<span class="bennu-localized-string-language"></span> <span class="caret"></span>' +
