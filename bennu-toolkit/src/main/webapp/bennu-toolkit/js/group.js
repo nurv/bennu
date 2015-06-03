@@ -18,7 +18,7 @@
 (function () {
 
     Bennu.group = Bennu.group || {};
-    Bennu.group.attr = "bennu-group"
+    /** const */  Bennu.group.attr = "bennu-group"
     Bennu.group.selectionClass = "btn-info";
 
     Bennu.group.template = '<div class="btn-group bennu-group-widget"></div>';
@@ -47,7 +47,7 @@
         icon: "glyphicon glyphicon-wrench"
     };
 
-    Bennu.group.modalTemplate = '<div class="bennu-group-custom-modal modal fade">' +
+    /** const */ Bennu.group.modalTemplate = '<div class="bennu-group-custom-modal modal fade">' +
         '<div class="modal-dialog">' +
         '<div class="modal-content">' +
         '<div class="modal-header">' +
@@ -109,6 +109,7 @@
         $(".bennu-group-list table", Bennu.group.customModal).append(line);
     };
 
+    /** private */
     function setSelected(dom) {
         var e = dom.data("related");
         var val = e.val();
@@ -203,6 +204,7 @@
 
     }
 
+    /** private */
     function group(dom) {
         var list = dom.data("customCache");
         list = list.substring(2, list.length - 1).split(",");
@@ -218,6 +220,7 @@
         return list;
     }
 
+    /** private */
     function storeGroup(list, dom) {
         var result = "";
         for (var i = 0; i < list.length; i++) {
@@ -234,6 +237,7 @@
         dom.data("related").val(s);
     }
 
+    /** private */
     function showModal(dom) {
         Bennu.group.customModal = $(".bennu-group-custom-modal");
         Bennu.group.customModal.data("input", dom);
@@ -249,6 +253,7 @@
         Bennu.group.customModal.modal('show');
     }
 
+    /** private */
     function cacheCustom(dom) {
         var e = dom.data("related");
 

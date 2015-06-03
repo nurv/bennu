@@ -16,13 +16,13 @@
  */
 
 (function () {
-    /** @const */ var ALLOW_VOICE = false;
-    /** @const */ var ALLOW_FULLSCREEN = true;
+    /** @define */ var ALLOW_VOICE = false;
+    /** @define */ var ALLOW_FULLSCREEN = true;
 
     
-    Bennu.htmlEditor = Bennu.htmlEditor || {};
-    Bennu.htmlEditor.attr = "bennu-html-editor";
-    Bennu.htmlEditor.colors = [
+    /** @package */ Bennu.htmlEditor = Bennu.htmlEditor || {};
+    /** @const {string} */ Bennu.htmlEditor.attr = "bennu-html-editor";
+    /** @const */ Bennu.htmlEditor.colors = [
         ["#000000","#424242","#636363","#9C9C94","#CEC6CE","#EFEFEF","#F7F7F7","#FFFFFF"],
         ["#FF0000","#FF9C00","#FFFF00","#00FF00","#00FFFF","#0000FF","#9C00FF","#FF00FF"],
         ["#F7C6CE","#FFE7CE","#FFEFC6","#D6EFD6","#CEDEE7","#CEE7F7","#D6D6E7","#E7D6DE"],
@@ -32,6 +32,7 @@
         ["#9C0000","#B56308","#BD9400","#397B21","#104A5A","#085294","#311873","#731842"],
         ["#630000","#7B3900","#846300","#295218","#083139","#003163","#21104A","#4A1031"]];
 
+    /** @protected */
     Bennu.htmlEditor.saveSelection = function() {
         if (window.getSelection) {
             sel = window.getSelection();
@@ -44,6 +45,7 @@
         return null;
     }
 
+    /** @protected */
     Bennu.htmlEditor.restoreSelection = function(range) {
         if (range) {
             if (window.getSelection) {
@@ -56,6 +58,7 @@
         }
     }
 
+    /** private */
     function generateColors(type){
         var result="";
         for (var i = 0; i < Bennu.htmlEditor.colors.length; i++) {
@@ -71,6 +74,7 @@
         return result;
     }
 
+    /** protected */
     Bennu.htmlEditor.fullscreen = function (e) {
         var target = $(e.target);
         var a = target.closest(".bennu-html-editor-input");
@@ -114,15 +118,18 @@
         $(".bennu-html-editor-editor", a).focus();
     }
 
-    var two_line = /\n\n/g;
-    var one_line = /\n/g;
+    /** const */ var two_line = /\n\n/g;
+    /** const */ var one_line = /\n/g;
 
+    /** private */
     function linebreak(s) {
         return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
     }
 
+    /** const */ 
     var first_char = /\S/;
 
+    /** private */
     function capitalize(s) {
         return s.replace(first_char, function (m) {
             return m.toUpperCase();

@@ -16,8 +16,8 @@
  */
 
 (function () {
-    var POST_ON_ERROR = false;
-    Bennu.validation = {};
+    /** @define */var POST_ON_ERROR = false;
+    Bennu.validation = Bennu.validation || {};
 
     Bennu.validation.attachToForm = function (widget) {
         var form = widget.closest("form");
@@ -65,7 +65,7 @@
         }
     };
 
-    var messages = {
+    /** const */ var messages = {
         'bennu-date':'You need to select one date',
         'bennu-time':'You need to select a time',
         'bennu-date-time':'You need to select a date and time'

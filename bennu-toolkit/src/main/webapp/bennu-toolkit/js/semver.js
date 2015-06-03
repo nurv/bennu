@@ -16,6 +16,10 @@
  */
 
 (function(){
+	/**
+ 	* A Semantic Version.
+ 	* @constructor
+ 	*/
 	Bennu.semanticVersion = Bennu.semanticVersion || function(version){
 		var match = /^[^\d]*(\d+)\.(\d+)\.(\d+)(.*)?/g.exec(version);
 

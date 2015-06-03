@@ -17,10 +17,11 @@
 
 (function () {
     Bennu.localizedString = Bennu.localizedString || {};
-    Bennu.localizedString.attr = "bennu-localized-string";
-    Bennu.localizedString.inputValidAttr = ["readonly", "placeholder", "maxlength","disabled"]
-    Bennu.localizedString.textAreaValidAttr = ["readonly", "placeholder", "maxlength","disabled"]
+    /** const */ Bennu.localizedString.attr = "bennu-localized-string";
+    /** const */ Bennu.localizedString.inputValidAttr = ["readonly", "placeholder", "maxlength","disabled"]
+    /** const */ Bennu.localizedString.textAreaValidAttr = ["readonly", "placeholder", "maxlength","disabled"]
     
+    /** private */
     function getSingleTag(locale){
         return locale.tag.split("-")[0].toUpperCase();
     }

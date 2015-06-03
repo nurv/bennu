@@ -16,7 +16,7 @@
  */
 
 (function () {
-
+    /** private */
     function parseTime(s){
         s = s.trim();
         if (s === ""){
@@ -44,6 +44,7 @@
         return date;
     }
 
+    /** private */
     function verifyType(e){
         e = $(e);
         if(Bennu.utils.hasAttr(e, "type")){
@@ -52,6 +53,7 @@
             }
         }
     }
+
 
     Bennu.datetime = Bennu.datetime || {};
 
@@ -74,6 +76,8 @@
             return Bennu.datetime.createTimeWidget(e);
         }
     }
+
+    /** private */
     function dateOptions(e, options){
         if (Bennu.utils.hasAttr(e, "min-date")) {
             options.minDate = new Date(e.attr("min-date"));
@@ -179,6 +183,7 @@
         return Bennu.widgetHandler.makeFor(e);
     }
 
+    /** private */
     function timeOptions(e, options){
         if (Bennu.utils.hasAttr(e,"only-hours")) {
             options.useSeconds = false

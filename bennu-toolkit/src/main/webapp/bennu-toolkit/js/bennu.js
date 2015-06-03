@@ -57,6 +57,7 @@
 
     Bennu.contextPath = Bennu.contextPath || "";
 
+    /** private */
     function prefixForEvent(a) {
         a[0] = a[0].split(" ").map(function (e) {
             return "bennu-toolkit-" + e;
@@ -171,6 +172,8 @@
         $(e).data("handler", result);
         return result;
     };
+
+    /** private */
     var _start = function(){
 	if (Bennu.loaded){
 	   Bennu.trigger("load");
