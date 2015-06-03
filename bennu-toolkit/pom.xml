@@ -34,7 +34,7 @@
             <plugin>
                 <groupId>com.samaxes.maven</groupId>
                 <artifactId>minify-maven-plugin</artifactId>
-                <version>1.7</version>
+                <version>1.7.4</version>
                 <executions>
                     <execution>
                         <id>toolkit</id>
@@ -68,6 +68,10 @@
                             <jsTargetDir>bennu-toolkit/js</jsTargetDir>
                             <jsFinalFile>toolkit.js</jsFinalFile>
                             <jsEngine>CLOSURE</jsEngine>
+                            <closureCompilationLevel>ADVANCED_OPTIMIZATIONS</closureCompilationLevel>
+                            <closureLanguage>ECMASCRIPT5_STRICT</closureLanguage>
+                            <closureCreateSourceMap>true</closureCreateSourceMap>
+                            <closureUseDefaultExterns>true</closureUseDefaultExterns>
                             <nosuffix>true</nosuffix>
                         </configuration>
                         <goals>
@@ -105,6 +109,10 @@
                             <jsTargetDir>bennu-toolkit/js</jsTargetDir>
                             <jsFinalFile>toolkit-angular.js</jsFinalFile>
                             <jsEngine>CLOSURE</jsEngine>
+                            <closureCompilationLevel>ADVANCED_OPTIMIZATIONS</closureCompilationLevel>
+                            <closureLanguage>ECMASCRIPT5_STRICT</closureLanguage>
+                            <closureCreateSourceMap>true</closureCreateSourceMap>
+                            <closureUseDefaultExterns>true</closureUseDefaultExterns>
                             <nosuffix>true</nosuffix>
                         </configuration>
                         <goals>

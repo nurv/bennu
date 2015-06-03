@@ -175,7 +175,7 @@
     		result.set(user);
     	});
         
-        result.handler = Bennu.widgetHandler.makeFor(input);
+        result.handler = new Bennu.widgetHandler(input);
         
         var val = $(input).val();
         

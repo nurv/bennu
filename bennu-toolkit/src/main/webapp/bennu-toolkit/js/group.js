@@ -323,7 +323,7 @@
             input.data("handler").trigger();
         });
 
-        return Bennu.widgetHandler.makeFor(input);
+        return new Bennu.widgetHandler(input);
     }
 })();
 

@@ -16,6 +16,7 @@
  */
 
 (function () {
+
     /** private */
     function parseTime(s){
         s = s.trim();
@@ -27,7 +28,7 @@
                 s = t[0];
                 var mili = parseInt(t[1]);
             }else{
-                var mili = 000;
+                var mili = 0;
             }
 
             var parts = s.split(":");
@@ -49,7 +50,7 @@
         e = $(e);
         if(Bennu.utils.hasAttr(e, "type")){
             if (val !== "text" && val !== "hidden"){
-                throw "Date/Time input field using non aceptable type";
+                console.error("Date/Time input field using non aceptable type\n" + e.prop('outerHTML'));
             }
         }
     }
@@ -120,6 +121,8 @@
         return 
     };
 
+    // Date Widget
+    // ---------------------------------------------
     Bennu.datetime.createDateWidget = function (e) {
         e = $(e);
         verifyType(e);
@@ -180,7 +183,7 @@
 
         Bennu.validation.attachToForm(widget);
         Bennu.utils.replaceRequired(e);
-        return Bennu.widgetHandler.makeFor(e);
+        return new Bennu.widgetHandler(e);
     }
 
     /** private */
@@ -265,7 +268,7 @@
 
         Bennu.validation.attachToForm(widget);
         Bennu.utils.replaceRequired(e);
-        return Bennu.widgetHandler.makeFor(e);
+        return new Bennu.widgetHandler(e);
     }
 
     Bennu.datetime.createDateTimeWidget = function (e) {
@@ -337,6 +340,6 @@
 
         Bennu.validation.attachToForm(widget);
         Bennu.utils.replaceRequired(e);
-        return Bennu.widgetHandler.makeFor(e);
+        return new Bennu.widgetHandler(e);
     }
 }());

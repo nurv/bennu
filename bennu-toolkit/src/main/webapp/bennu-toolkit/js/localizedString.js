@@ -121,6 +121,30 @@
         return exactMatch ? null : input[Object.keys(input)[0]];
     };
 
+    /** @private */
+    function nextLocale(widget) {
+        var idx = localeIndex($(widget).data('locale')) + 1;
+        if(idx == Bennu.locales.length) { idx = 0; }
+        return Bennu.locales[idx];
+    };
+
+    /** @private */
+    function previousLocale(widget) {
+        var idx = localeIndex($(widget).data('locale')) - 1;
+        if(idx < 0) { idx = Bennu.locales.length - 1; }
+        return Bennu.locales[idx];
+    };
+
+    /** @private */
+    function localeIndex(locale) {
+        var idx = -1;
+        $.map(Bennu.locales, function(val, i) {
+            if(val.tag == locale.tag) { idx = i; }
+        });
+        return idx;
+    };
+
+
     Bennu.localizedString.createWidget = function (input) {
         input = $(input);
 
@@ -160,34 +184,14 @@
                 widget.removeClass("has-error");
             });
 
-            function nextLocale() {
-                var idx = localeIndex($(widget).data('locale')) + 1;
-                if(idx == Bennu.locales.length) { idx = 0; }
-                return Bennu.locales[idx];
-            };
-
-            function previousLocale() {
-                var idx = localeIndex($(widget).data('locale')) - 1;
-                if(idx < 0) { idx = Bennu.locales.length - 1; }
-                return Bennu.locales[idx];
-            };
-
-            function localeIndex(locale) {
-                var idx = -1;
-                $.map(Bennu.locales, function(val, i) {
-                    if(val.tag == locale.tag) { idx = i; }
-                });
-                return idx;
-            };
-
             var modOn = false;
             widget.keydown(function(evt) {
                 if(evt.keyCode == 18) {
                     modOn = true;
                 } else if(modOn) {
                     var newLocale;
-                    if(evt.keyCode == 40) { newLocale = nextLocale(); }
-                    else if(evt.keyCode == 38) { newLocale = previousLocale(); }
+                    if(evt.keyCode == 40) { newLocale = nextLocale(widget); }
+                    else if(evt.keyCode == 38) { newLocale = previousLocale(widget); }
                     if(newLocale) {
                         Bennu.localizedString.changeData(newLocale, $(".bennu-localized-string-language", widget), $(".bennu-localized-string-input,.bennu-localized-string-textarea", widget), widget, $(".bennu-localized-string-tag", widget));
                     }
@@ -219,7 +223,7 @@
                 Bennu.utils.updateAttrs(input,widgetInput, Bennu.localizedString.textAreaValidAttr);
             }
             
-            return Bennu.widgetHandler.makeFor(input);
+            return new Bennu.widgetHandler(input);
         }
     };
 

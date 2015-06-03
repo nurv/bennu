@@ -46,6 +46,7 @@
     }
 
     /** @protected */
+
     Bennu.htmlEditor.restoreSelection = function(range) {
         if (range) {
             if (window.getSelection) {
@@ -573,7 +574,7 @@
 	    e.data("handler").trigger();
         });
 
-        var handler = Bennu.widgetHandler.makeFor(e);
+        var handler = new Bennu.widgetHandler(e);
 
         var setupEditor = function(dom) {
             var editor = $(".bennu-html-code-editor", dom).data("editor");

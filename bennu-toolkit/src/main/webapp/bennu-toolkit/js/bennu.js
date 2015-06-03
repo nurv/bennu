@@ -25,15 +25,24 @@
     window.Bennu = window.Bennu || {};
     
     $(function(){
-	Bennu.loaded = true;
+	   Bennu.loaded = true;
     })
 
     Bennu.version = "${project.version}";
 
+    /**
+     * @return {string}
+     */
     Bennu.toString = function () {
         return "Bennu Toolkit v" + Bennu.version;
     };
 
+
+    // Unique Symbol Generator
+    // ---------------------------------------------
+    /**
+     * @return {string}
+     */
     Bennu.gensym = function () {
         var text = "";
         var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -45,6 +54,9 @@
         return text;
     };
 
+
+    // Content Path
+    // ---------------------------------------------
     Bennu.contextPath = window.contextPath;
     if(!Bennu.contextPath) {
         $("script").map(function (idx, el) {
@@ -66,6 +78,9 @@
         });
     }
 
+
+    // Event System
+    // ---------------------------------------------
     Bennu.on = function () {
         prefixForEvent(arguments);
         var q = $("html");
@@ -131,60 +146,60 @@
     }
 
 
-    Bennu.widgetHandler = Bennu.widgetHandler || {}
-    Bennu.widgetHandler.makeFor = function (e, onremove){
-        var events = [];
-        var result = {
-            get:function(){
-                return $(e).val();
-            },
+    Bennu.widgetHandler = function (e, onremove){
+        this._events = [];
+        this._e = e;
 
-            set:function(val){
-                $(e).val(val);
-                $(e).trigger("change");
-            },
+        this.get = function(){
+            return $(this._e).val();
+        };
 
-            clear:function(val){
-                this.set("");
-            },
+        this.set = function(val){
+            $(this._e).val(val);
+            $(this._e).trigger("change");
+        };
 
-            onchange:function(fn){
-                events.push(fn);
-            },
+        this.clear = function(val){
+            this.set("");
+        };
 
-            trigger: function(){
-                for (var i = 0; i < events.length; i++) {
-                    events[i].apply(e,{
-                        type:"change",
-                        target:e
-                    });
-                }
-            },
+        this.onchange = function(fn){
+            events.push(fn);
+        };
 
-            remove: function(){
-                $(e).data("input").remove();
-                $(e).data("input", null);
-                $(e).data("handler", null);
-                $(e).off(".bennu");
+        this.trigger = function(){
+            for (var i = 0; i < events.length; i++) {
+                events[i].apply(this._e,{
+                    type:"change",
+                    target:this._e
+                });
             }
+        };
+
+        this.remove = function(){
+            $(this._e).data("input").remove();
+            $(this._e).data("input", null);
+            $(this._e).data("handler", null);
+            $(this._e).off(".bennu");
         }
 
-        $(e).data("handler", result);
+        $(this._e).data("handler", result);
         return result;
     };
 
     /** private */
     var _start = function(){
-	if (Bennu.loaded){
-	   Bennu.trigger("load");
-	}else{
-	   $(function (){
-    		Bennu.trigger("load");
-           });
-	}            	   
+    	if (Bennu.loaded){
+    	   Bennu.trigger("load");
+    	}else{
+    	   $(function (){
+        		Bennu.trigger("load");
+               });
+    	}            	   
     }
+
     if(Bennu.locales) {
-	  _start();
+	   _start();
     } else {
         $.ajax({
             type: "GET",
